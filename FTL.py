@@ -69,10 +69,12 @@ class FTL:
 
 	def process(self, RW, lba, sector_count):
 		# Get target LPNs
+  		# print("lba", lba);
 		page_start = lba // NAND.SECTORS_PER_PAGE;
 		page_end = (lba + sector_count + NAND.SECTORS_PER_PAGE - 1) \
 					// NAND.SECTORS_PER_PAGE;
-		print(page_start, page_end)
+		# print(page_start, page_end)
+		# print("lba", lba)
 
 		lpns = range(page_start, page_end);
 

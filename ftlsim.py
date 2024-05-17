@@ -105,7 +105,7 @@ def process_workload(ftl, workload):
 	progress_marks = [];
 	progress_last = datetime.datetime.now();
 	progress_delta = 0;
-
+	print("workload", workload.name)
 	if workload is not sys.stdin:
 		trace("- Workload file:", workload.name, level = 1);
 
@@ -117,7 +117,8 @@ def process_workload(ftl, workload):
 
 
 	trace("- Running workloads ...");
-	for l in workload.xreadlines():
+
+	for l in workload:
 		e = l.strip().lstrip().split();
 
 		if (len(e)) == 0: continue;
@@ -127,8 +128,8 @@ def process_workload(ftl, workload):
 		# Skip comments
 		if RW[0] == '#': continue;
 
-		sector_start = long(e[1]);
-		sector_count = long(e[2]);
+		sector_start = int(e[1]);
+		sector_count = int(e[2]);
 
 		assert sector_count <= SSD.SECTOR_MAX;
 
@@ -179,7 +180,7 @@ def main():
 	if not args.init_empty:
 		trace("- Fill up usable space ...", newline = False);
 		for req in range(int(SSD.BLOCKS * (1 - SSD.PROVISION_RATIO))):
-			sector_start = req * NAND.PAGES_PER_BLOCK * NAND.SECTORS_PER_PAGE;
+			sector_start = req * NAND.PAGES_PER_BLOCK * NAND.SECTORS_PER_PAGE; # This is logical block address
 			ftl.process('W',
 					sector_start, NAND.PAGES_PER_BLOCK * NAND.SECTORS_PER_PAGE);
 		Statistics.reset();
@@ -188,6 +189,7 @@ def main():
 	dt_start = datetime.datetime.now();
 
 	try:
+		print(args.infile)
 		process_workload(ftl, args.infile);
 	except KeyboardInterrupt as e:
 		print;

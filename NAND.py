@@ -43,7 +43,7 @@ def get_paired_page(offset):
 
 
 def from_ppn(ppn):
-	block = ppn / PAGES_PER_BLOCK;
+	block = ppn // PAGES_PER_BLOCK;
 	page = ppn % PAGES_PER_BLOCK;
 	return block, page;
 
