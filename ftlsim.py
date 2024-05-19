@@ -105,7 +105,6 @@ def process_workload(ftl, workload):
 	progress_marks = [];
 	progress_last = datetime.datetime.now();
 	progress_delta = 0;
-	print("workload", workload.name)
 	if workload is not sys.stdin:
 		trace("- Workload file:", workload.name, level = 1);
 
@@ -189,7 +188,6 @@ def main():
 	dt_start = datetime.datetime.now();
 
 	try:
-		print(args.infile)
 		process_workload(ftl, args.infile);
 	except KeyboardInterrupt as e:
 		print;

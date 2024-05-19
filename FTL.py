@@ -77,6 +77,7 @@ class FTL:
 		# print("lba", lba)
 
 		lpns = range(page_start, page_end);
+		print("lpns", lpns)
 
 		start_request = Statistics.elapsed;
 
