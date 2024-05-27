@@ -126,7 +126,7 @@ def process_workload(ftl, workload):
 
 		# Skip comments
 		if RW[0] == '#': continue;
-
+		print(e);
 		sector_start = int(e[1]);
 		sector_count = int(e[2]);
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-PAGES_PER_BLOCK = 128;					# 1 MB block
-SECTORS_PER_PAGE = 16;					# 8 KB page
+PAGES_PER_BLOCK = 256;					# 1 MB block
+SECTORS_PER_PAGE = 8;					# 8 KB page
 PAGE_SIZE = 512 * SECTORS_PER_PAGE;
 
 # Time in us for flash operations
