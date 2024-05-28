@@ -67,7 +67,8 @@ class PageFTL(FTL):
 
 		# Backup LSB page if necessary
 		self.backup_lsb_page(block, offset, lpn, lpns);
-
+  
+		print(lpn)
 		self.write_page(block, offset);
 		self.update_mapping(lpn, block, offset);
 

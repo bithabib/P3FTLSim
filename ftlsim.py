@@ -129,6 +129,7 @@ def process_workload(ftl, workload):
 		print(e);
 		sector_start = int(e[1]);
 		sector_count = int(e[2]);
+		print(SSD.SECTOR_MAX)
 
 		assert sector_count <= SSD.SECTOR_MAX;
 

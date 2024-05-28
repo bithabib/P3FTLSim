@@ -45,11 +45,12 @@ class FTL:
 		block.last_accessed = Statistics.clock;
 
 		Statistics.pages_written += 1;
+
+		# print("write_page", Statistics.pages_written)
 		Statistics.add_time('W', ppn);
 
 
 	def erase_block(self, block, backup_block = False):
-		# print "Erase", block.id
 		assert block.status == Block.USED or block.status == Block.GC;
 		block.erase();
 
@@ -69,15 +70,11 @@ class FTL:
 
 	def process(self, RW, lba, sector_count):
 		# Get target LPNs
-  		# print("lba", lba);
 		page_start = lba // NAND.SECTORS_PER_PAGE;
 		page_end = (lba + sector_count + NAND.SECTORS_PER_PAGE - 1) \
 					// NAND.SECTORS_PER_PAGE;
-		# print(page_start, page_end)
-		# print("lba", lba)
 
 		lpns = range(page_start, page_end);
-		print("lpns", lpns)
 
 		start_request = Statistics.elapsed;
 
@@ -87,8 +84,14 @@ class FTL:
 		else:
 			Statistics.requests_write += 1;
 			Statistics.requests_pages_write += len(lpns);
+			print("waf_lpns",lpns)
+			print("waf_lpns_length",len(lpns))
+			print("waf",Statistics.requests_pages_write)
+			
+			
 
 		for lpn in lpns:
+			print("lpn",lpn)
 			start = Statistics.elapsed;
 			if RW == 'W':
 				self.process_write(lpn, lpns);
@@ -152,6 +155,7 @@ class FTL:
 
 
 	def backup_lsb_page(self, block, offset, lpn, request_lpns, in_reclaim = False):
+		print("backup_lsb_page",lpn)
 		if not NAND.is_msb(offset) or self.no_backup: return;
 
 		pair_offset = NAND.get_paired_page(offset);
